@@ -21,7 +21,7 @@ R> s1 <- train(s1, Class~., training, update=FALSE)
 R> s1 <- predict(s1, testing, alpha=1, Y=testingY)
 ```
 
-## Concepts of SUMMA+
+## SUMMA+ approach
 
 <p align="center"><img src="/tex/a62aee35afd467c7629adccee2a1b2ac.svg?invert_in_darkmode&sanitize=true" align=middle width=223.02910409999998pt height=49.315569599999996pt/></p>
 
@@ -33,7 +33,7 @@ where <img src="/tex/347bed394338d5662bc68b387f5a8cce.svg?invert_in_darkmode&san
 
 <p align="center"><img src="/tex/911b0c88fb0dc3259f094e5560691542.svg?invert_in_darkmode&sanitize=true" align=middle width=238.06757205pt height=37.099754999999995pt/></p>
 
-## Concepts of SUMMA
+## SUMMA approach
 
 <p align="center"><img src="/tex/60ddafa59eea0b8718ffdee44a4ff50c.svg?invert_in_darkmode&sanitize=true" align=middle width=246.6810357pt height=49.315569599999996pt/></p>
 
