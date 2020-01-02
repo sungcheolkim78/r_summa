@@ -9,9 +9,10 @@ Original SUMMA : [link](http://jmlr.org/papers/v20/18-094.html) [pdf](https://ww
 Prerequisite library: caret
 
 ```{r}
-R> install.packages("devtools")
-R> install.pakcages("caret", dependencies = c("Depends", "Suggests"))
-R> devtools::install_github("sungcheolkim78/r_summa",build_vignettes = T)  [TODO]
+#R> install.packages("devtools")
+#R> install.pakcages("caret", dependencies = c("Depends", "Suggests"))
+#R> devtools::install_github("sungcheolkim78/r_summa",build_vignettes = T)  [TODO]
+R> source("r_summa.R")
 ```
 
 ## Usage
