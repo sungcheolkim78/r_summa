@@ -25,9 +25,11 @@ R> s1 <- predict(s1, testing, alpha=1, Y=testingY)
 
 $$ y_k^{MLE} = \Theta\left\{\sum_{i=1}^M \lambda_{2i}^\alpha (r^*_i - r_{ik})\right\} $$
 
+where 
+
 $$ r^*_i = \frac{1}{\lambda_{2i}} \log \frac{1-\rho}{\rho} -\frac{\lambda_{1i}}{\lambda_{2i}} $$
 
-where $\lambda_1, \lambda_2$ is fitting coefficient of Fermi-Dirac distribution to class probability. And $\alpha$ is tuning parameter with default value of 1. 
+where $\lambda_1, \lambda_2$ is fitting coefficient of Fermi-Dirac distribution to class probability. And $\alpha, \rho$ are tuning parameter with default value of 1 and prevalence, respectively. 
 
 $$ P_i(1|r_{ik}) = \frac{1}{1+\exp{(\lambda_{1i} + \lambda_{2i} r_{ik})}} $$
 
@@ -35,10 +37,10 @@ $$ P_i(1|r_{ik}) = \frac{1}{1+\exp{(\lambda_{1i} + \lambda_{2i} r_{ik})}} $$
 
 $$ y_k^{MLE} = \Theta\left\{\sum_{i=1}^M v_i (\frac{N+1}{2} - r_{ik})\right\} $$
 
-where 
+where $N$ is total number of samples and 
 
 $$ v_i = \frac{12\Delta_i}{N^2 - 1} $$
 
-and 
+where $\left R|0\right>$ is the expectation value of rank $R$ with a given class 1, 
 
 $$ \Delta_i = \left< R|0\right> - \left< R|1\right> $$
