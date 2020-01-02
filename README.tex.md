@@ -21,7 +21,7 @@ R> s1 <- train(s1, Class~., training, update=FALSE)
 R> s1 <- predict(s1, testing, alpha=1, Y=testingY)
 ```
 
-## Concepts of SUMMA+
+## SUMMA+ approach
 
 $$ y_k^{MLE} = \Theta\left\{\sum_{i=1}^M \lambda_{2i}^\alpha (r^*_i - r_{ik})\right\} $$
 
@@ -33,7 +33,7 @@ where $\lambda_1, \lambda_2$ is fitting coefficient of Fermi-Dirac distribution 
 
 $$ P_i(1|r_{ik}) = \frac{1}{1+\exp{(\lambda_{1i} + \lambda_{2i} r_{ik})}} $$
 
-## Concepts of SUMMA
+## SUMMA approach
 
 $$ y_k^{MLE} = \Theta\left\{\sum_{i=1}^M v_i (\frac{N+1}{2} - r_{ik})\right\} $$
 
