@@ -10,8 +10,11 @@ Original SUMMA : [link](http://jmlr.org/papers/v20/18-094.html) [pdf](https://ww
 
 ## Concepts
 
-$$ y_k = \Theta\left{\sum_{i=1}^M \lambda_2 (r^* - r_{ik})\right} $$
+$$ y_k = \Theta\left\{\sum_{i=1}^M \lambda_2 (r^* - r_{ik})\right\} $$
 
-where $\lambda2$ is fitting coefficient of Fermi-Dirac distribution and 
+$$ r^*_i = \frac{1}{\lambda_{2i}} \log \frac{1-\rho}{\rho} -\frac{\lambda_{1i}}{\lambda_{2i}} $$
 
-$$ r^* = $$
+where $\lambda_1, \lambda_2$ is fitting coefficient of Fermi-Dirac distribution to class probability.
+
+$$ P_i(1|r_{ik}) = \frac{1}{1+\exp{(\lambda_{1i} + \lambda_{2i} r_{ik})}} $$
+
