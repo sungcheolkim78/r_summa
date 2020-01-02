@@ -15,6 +15,7 @@ R> install.pakcages("caret", dependencies = c("Depends", "Suggests"))
 ## Usage
 
 ```{r}
+R> modellist <- c("svmRadial", "C5.0", "pls", "rda", "gbm", "nnet")
 R> s1 <- summa(modellist)
 R> s1 <- train(s1, Class~., training, update=FALSE)
 R> s1 <- predict(s1, testing, alpha=1, Y=testingY)
