@@ -10,7 +10,7 @@ output: html_notebook
 ```{r}
 library(mlbench)
 
-source('r_summa.R')
+source('../r_summa.R')
 ```
 
 ```{r}
@@ -31,7 +31,7 @@ s1 <- train(s1, Class~., training, update=F)
 ```
 
 ```{r}
-s1 <- addmodel.summa(s1, c('C5.0', 'gbm'))
+s1 <- addmodel.summa(s1, c('rpart'))
 s1 <- train(s1, Class~., training, update=F)
 ```
 
@@ -44,7 +44,7 @@ plot(s1)
 ```
 
 ```{r}
-s2 <- predict(s1, testing, newmodellist = c('nnet', 'pls', 'ctree', 'knn', 'earth', 'avNNet'), alpha=11, Y=testingY)
+s2 <- predict(s1, testing, newmodellist = c('pls', 'ctree'), alpha=11, Y=testingY)
 ```
 
 ```{r}
