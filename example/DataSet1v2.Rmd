@@ -8,6 +8,8 @@ output: html_notebook
 ## Preparations
 
 ```{r}
+library(mlbench)
+
 source('r_summa.R')
 ```
 
@@ -21,7 +23,7 @@ testingY <- Sonar[-inTraining0, ncol(Sonar)]
 ```
 
 ```{r}
-s1 <- summa(c('nnet', 'rda', 'pls', 'C5.0', 'ctree', 'knn', 'earth', 'avNNet', 'rpart'))
+s1 <- summa(c('nnet', 'rda', 'pls', 'C5.0', 'ctree'))
 ```
 
 ```{r}
@@ -38,7 +40,7 @@ plot(s1)
 ```
 
 ```{r}
-s1 <- predict(s1, testing, alpha=6, Y=testingY)
+(s1 <- predict(s1, newdata=testing, alpha=1, Y=testingY))
 ```
 
 ```{r}
@@ -50,7 +52,7 @@ print(s1)
 ```
 
 ```{r}
-s1$testproblist$svmRadial[[1]]
+predict(s1, alpha=13)
 ```
 
 ```{r}

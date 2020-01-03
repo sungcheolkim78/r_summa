@@ -33,6 +33,7 @@ new_summa <- function(x = list(), method = "plus", fitControl = NULL) {
                  testproblist = list(), 
                  roclist = list(),
                  lambdalist = list(), 
+                 testdata = list(), 
                  Y = list(),
                  rho = numeric()), 
             method = method, 
@@ -92,29 +93,35 @@ train.summa <- function(summa, formula, data, update=FALSE, n_cores=-1) {
   summa
 }
 
-predict.summa <- function(summa, newdata, alpha=1.0, newmodellist = NULL, Y=NULL) {
-  summa$testlist <- map(summa$fitlist, predict, newdata=newdata)
-  summa$testproblist <- map(summa$fitlist, predict, newdata=newdata, type='prob')
+predict.summa <- function(summa, newdata = NULL, alpha=1.0, newmodellist = NULL, Y=NULL) {
+  if(!is.null(newdata)) 
+    summa$testdata <- newdata
+  stopifnot(!is.null(summa$testdata))
   
-  if(!is.null(Y)) {
-    class1name = levels(Y)[[1]]
-    class2name = levels(Y)[[2]]
-    rho <- sum(Y == class1name)/length(Y)
+  summa$testlist <- map(summa$fitlist, predict, newdata=summa$testdata)
+  summa$testproblist <- map(summa$fitlist, predict, newdata=summa$testdata, type='prob')
+  
+  if(!is.null(Y)) summa$Y <- Y
+  
+  if(!is.null(summa$Y)) {
+    class1name = levels(summa$Y)[[1]]
+    class2name = levels(summa$Y)[[2]]
+    rho <- sum(summa$Y == class1name)/length(summa$Y)
 
-    summa$Y <- Y
-    summa$roclist <- map(summa$testproblist, rocrank, reference = Y)
-    summa$lambdalist <- map(summa$roclist, lambda_fromROC, N=length(Y), rho=rho)
+    summa$roclist <- map(summa$testproblist, rocrank, reference = summa$Y)
+    summa$lambdalist <- map(summa$roclist, lambda_fromROC, N=length(summa$Y), rho=rho)
     
     res <- cal_score(summa, alpha = alpha, newmodellist = newmodellist)
     summa$testlist$summa <- as.factor(ifelse(res > 0, class2name, class1name))
     summa$testproblist$summa <- data.frame(1/(1 + exp(res)), 1/(1+exp(-res)))
     names(summa$testproblist$summa) <- c(class1name, class2name)
     
-    summa$roclist <- c(summa$roclist, summa = rocrank(summa$testproblist$summa, reference = Y))
-    summa$lambdalist$summa <- lambda_fromROC(summa$roclist$summa, N=length(Y), rho=rho)
-    summa$confmatrix <- map(summa$testlist, confusionMatrix, reference = Y)
+    summa$roclist <- c(summa$roclist, summa = rocrank(summa$testproblist$summa, reference = summa$Y))
+    summa$lambdalist$summa <- lambda_fromROC(summa$roclist$summa, N=length(summa$Y), rho=rho)
+    summa$confmatrix <- map(summa$testlist, confusionMatrix, reference = summa$Y)
 
-    print.summa(summa, newmodellist = newmodellist)
+    # for debug
+    #print.summa(summa, newmodellist = newmodellist)
     #print(summa$confmatrix$summa)
     #print(summa$testproblist$summa)
   }
@@ -127,6 +134,10 @@ plot.summa <- function(summa) {
 }
 
 print.summa <- function(summa, newmodellist = NULL) {
+  print(summary.summa(summa, newmodellist = newmodellist))
+}
+
+summary.summa <- function(summa, newmodellist = NULL) {
   if (is.null(newmodellist)) 
     newmodellist <- c(summa$modellist, 'summa')
   else 
@@ -136,7 +147,7 @@ print.summa <- function(summa, newmodellist = NULL) {
   l1 <- map_dbl(summa$lambdalist[newmodellist], 1)
   l2 <- map_dbl(summa$lambdalist[newmodellist], 2)
   rs <- map_dbl(summa$lambdalist[newmodellist], 3)
-  print(rbind(ROC, l1, l2, rs))
+  rbind(ROC, l1, l2, rs)
 }
 
 # Utility functions
@@ -144,11 +155,13 @@ print.summa <- function(summa, newmodellist = NULL) {
 cal_score <- function(summa, newmodellist = NULL, alpha = 1.0, view = FALSE) {
   if (is.null(newmodellist)) newmodellist <- summa$modellist
   
+  class1name = levels(summa$Y)[[1]]
+  
   res <- matrix(0, nrow=length(summa$testlist[[1]]), ncol=length(newmodellist))
   colnames(res) <- newmodellist
   
   for(m in newmodellist) {
-    res[ , m] <- rank(summa$testproblist[[m]][[1]])
+    res[ , m] <- rank(summa$testproblist[[m]][[class1name]])
     res[ , m] <- summa$lambdalist[[m]][[2]]^alpha *(summa$lambdalist[[m]][[3]] - res[, m])
   }
   
@@ -165,14 +178,14 @@ cal_score <- function(summa, newmodellist = NULL, alpha = 1.0, view = FALSE) {
 
 # calculate ROC from rank and reference
 rocrank <- function(problist, reference) {
-  classNames1 <- unique(reference)[[1]]
-  classNames2 <- unique(reference)[[2]]
+  class1name = levels(reference)[[1]]
+  class2name = levels(reference)[[2]]
   
-  temp <- data.frame(prob=problist[[1]], truth=reference)
+  temp <- data.frame(prob=problist[[class1name]], truth=reference)
   temp <- temp[order(temp$prob, decreasing = TRUE), ]
   temp$rank <- seq_along(reference)
   
-  (mean(temp$rank[temp$truth == classNames1]) - mean(temp$rank[temp$truth == classNames2]))/length(reference) + 0.5
+  (mean(temp$rank[temp$truth == class2name]) - mean(temp$rank[temp$truth == class1name]))/length(reference) + 0.5
 }
 
 # calculate lambda1,2 from ROC, rho
