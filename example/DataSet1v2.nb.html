@@ -1781,27 +1781,6 @@ summary {
 
 source(&#39;../r_summa.R&#39;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBsYXR0aWNlXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IGdncGxvdDJcblxuQXR0YWNoaW5nIHBhY2thZ2U6IOKAmHB1cnJy4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6Y2FyZXTigJk6XG5cbiAgICBsaWZ0XG5cbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogZm9yZWFjaFxuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYZm9yZWFjaOKAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdHMgYXJlIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6cHVycnLigJk6XG5cbiAgICBhY2N1bXVsYXRlLCB3aGVuXG5cbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogaXRlcmF0b3JzXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IHBhcmFsbGVsXG4ifQ== -->
-<pre><code>Loading required package: lattice
-Loading required package: ggplot2
-
-Attaching package: ‘purrr’
-
-The following object is masked from ‘package:caret’:
-
-    lift
-
-Loading required package: foreach
-
-Attaching package: ‘foreach’
-
-The following objects are masked from ‘package:purrr’:
-
-    accumulate, when
-
-Loading required package: iterators
-Loading required package: parallel</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -1937,9 +1916,16 @@ rs  26.6632 26.49172 26.47522 26.6259 26.32764 26.11823 26.6849</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucm9jcmFuayhzMSR0ZXN0cHJvYmxpc3Qkc3ZtUmFkaWFsLCB0ZXN0aW5nWSlcbmBgYCJ9 -->
-<pre class="r"><code>rocrank(s1$testproblist$svmRadial, testingY)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShzMSlcbmBgYCJ9 -->
+<pre class="r"><code>summary(s1)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIG5uZXQgICAgICByZGEgICAgICBwbHMgICAgQzUuMCAgICBjdHJlZSAgICAgIGtubiAgIGVhcnRoICAgIHJwYXJ0ICAgICBnYm0gICBzdW1tYVxuUk9DICAwLjg3MzUgIDAuODI0MDcgIDAuODI4NzAgIDAuODg4OSAgMC43NzYyMyAgMC43NDA3NCAgMC44ODQzICAwLjU4MDI1ICAwLjkwNDMgIDAuOTI0NFxubDEgIC0zLjQ5NDUgLTIuNzAzMDMgLTIuNzY1NzQgLTMuODIwNCAtMi4xNDMxMCAtMS44MDEwMiAtMy43MTcxIC0wLjYxNjk3IC00LjIwNzggLTQuODUxNlxubDIgICAwLjEyNjUgIDAuMDk3MzIgIDAuMDk5NjQgIDAuMTM4NSAgMC4wNzY1NCAgMC4wNjM3OCAgMC4xMzQ3ICAwLjAxOTExICAwLjE1MjcgIDAuMTc2MlxucnMgIDI2LjY5MzcgMjYuNTY0NDkgMjYuNTc1NjAgMjYuNzQwNCAyNi40NTk0NiAyNi4zODk0NiAyNi43MjYxIDI2LjEyMDAwIDI2Ljc5MTMgMjYuODY1OFxuIn0= -->
+<pre><code>       nnet      rda      pls    C5.0    ctree      knn   earth    rpart     gbm   summa
+ROC  0.8735  0.82407  0.82870  0.8889  0.77623  0.74074  0.8843  0.58025  0.9043  0.9244
+l1  -3.4945 -2.70303 -2.76574 -3.8204 -2.14310 -1.80102 -3.7171 -0.61697 -4.2078 -4.8516
+l2   0.1265  0.09732  0.09964  0.1385  0.07654  0.06378  0.1347  0.01911  0.1527  0.1762
+rs  26.6937 26.56449 26.57560 26.7404 26.45946 26.38946 26.7261 26.12000 26.7913 26.8658</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -1976,7 +1962,7 @@ summa 0.9603 0.8687 0.8871 0.9339 0.8566 0.6751 1.0000</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1VNTUErIERhdGFzZXQgMSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBJbXBsZW1lbnQvdGVzdCBTVU1NQSsgbGlicmFyeSBvbiBEYXRhIFNldCAxIChTb25hcikKCiMjIFByZXBhcmF0aW9ucwoKYGBge3J9CmxpYnJhcnkobWxiZW5jaCkKCnNvdXJjZSgnLi4vcl9zdW1tYS5SJykKYGBgCgpgYGB7cn0KI3NldC5zZWVkKDEwMjQpCmRhdGEoU29uYXIpCmluVHJhaW5pbmcwIDwtIGNyZWF0ZURhdGFQYXJ0aXRpb24oU29uYXIkQ2xhc3MsIHAgPSAuNzUsIGxpc3QgPSBGQUxTRSkKdHJhaW5pbmcgPC0gU29uYXJbIGluVHJhaW5pbmcwLF0KdGVzdGluZyAgPC0gU29uYXJbLWluVHJhaW5pbmcwLF0KdGVzdGluZ1kgPC0gU29uYXJbLWluVHJhaW5pbmcwLCBuY29sKFNvbmFyKV0KYGBgCgpgYGB7cn0KczEgPC0gc3VtbWEoYygnbm5ldCcsICdyZGEnLCAncGxzJywgJ0M1LjAnLCAnY3RyZWUnKSkKYGBgCgpgYGB7cn0KczEgPC0gdHJhaW4oczEsIENsYXNzfi4sIHRyYWluaW5nLCB1cGRhdGU9RikKYGBgCgpgYGB7cn0KczEgPC0gYWRkbW9kZWwuc3VtbWEoczEsIGMoJ3JwYXJ0JykpCnMxIDwtIHRyYWluKHMxLCBDbGFzc34uLCB0cmFpbmluZywgdXBkYXRlPUYpCmBgYAoKYGBge3J9CnBsb3QoczEpCmBgYAoKYGBge3J9CihzMSA8LSBwcmVkaWN0KHMxLCBuZXdkYXRhPXRlc3RpbmcsIGFscGhhPTEsIFk9dGVzdGluZ1kpKQpgYGAKCmBgYHtyfQpzMiA8LSBwcmVkaWN0KHMxLCB0ZXN0aW5nLCBuZXdtb2RlbGxpc3QgPSBjKCdwbHMnLCAnY3RyZWUnKSwgYWxwaGE9MTEsIFk9dGVzdGluZ1kpCmBgYAoKYGBge3J9CnByaW50KHMxKQpgYGAKCmBgYHtyfQpwcmVkaWN0KHMxLCBhbHBoYT0xMykKYGBgCgpgYGB7cn0Kcm9jcmFuayhzMSR0ZXN0cHJvYmxpc3Qkc3ZtUmFkaWFsLCB0ZXN0aW5nWSkKYGBgCgpgYGB7cn0KcmVzIDwtIGNhbF9zY29yZShzMSwgdmlldz1UKQpgYGAKCmBgYHtyfQpzMSRtb2RlbGxpc3QKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1VNTUErIERhdGFzZXQgMSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBJbXBsZW1lbnQvdGVzdCBTVU1NQSsgbGlicmFyeSBvbiBEYXRhIFNldCAxIChTb25hcikKCiMjIFByZXBhcmF0aW9ucwoKYGBge3J9CmxpYnJhcnkobWxiZW5jaCkKCnNvdXJjZSgnLi4vcl9zdW1tYS5SJykKYGBgCgpgYGB7cn0KI3NldC5zZWVkKDEwMjQpCmRhdGEoU29uYXIpCmluVHJhaW5pbmcwIDwtIGNyZWF0ZURhdGFQYXJ0aXRpb24oU29uYXIkQ2xhc3MsIHAgPSAuNzUsIGxpc3QgPSBGQUxTRSkKdHJhaW5pbmcgPC0gU29uYXJbIGluVHJhaW5pbmcwLF0KdGVzdGluZyAgPC0gU29uYXJbLWluVHJhaW5pbmcwLF0KdGVzdGluZ1kgPC0gU29uYXJbLWluVHJhaW5pbmcwLCBuY29sKFNvbmFyKV0KYGBgCgpgYGB7cn0KczEgPC0gc3VtbWEoYygnbm5ldCcsICdyZGEnLCAncGxzJywgJ0M1LjAnLCAnY3RyZWUnKSkKYGBgCgpgYGB7cn0KczEgPC0gdHJhaW4oczEsIENsYXNzfi4sIHRyYWluaW5nLCB1cGRhdGU9RikKYGBgCgpgYGB7cn0KczEgPC0gYWRkbW9kZWwuc3VtbWEoczEsIGMoJ3JwYXJ0JykpCnMxIDwtIHRyYWluKHMxLCBDbGFzc34uLCB0cmFpbmluZywgdXBkYXRlPUYpCmBgYAoKYGBge3J9CnBsb3QoczEpCmBgYAoKYGBge3J9CihzMSA8LSBwcmVkaWN0KHMxLCBuZXdkYXRhPXRlc3RpbmcsIGFscGhhPTEsIFk9dGVzdGluZ1kpKQpgYGAKCmBgYHtyfQpzMiA8LSBwcmVkaWN0KHMxLCB0ZXN0aW5nLCBuZXdtb2RlbGxpc3QgPSBjKCdwbHMnLCAnY3RyZWUnKSwgYWxwaGE9MTEsIFk9dGVzdGluZ1kpCmBgYAoKYGBge3J9CnByaW50KHMxKQpgYGAKCmBgYHtyfQpwcmVkaWN0KHMxLCBhbHBoYT0xMykKYGBgCgpgYGB7cn0Kc3VtbWFyeShzMSkKYGBgCgpgYGB7cn0KcmVzIDwtIGNhbF9zY29yZShzMSwgdmlldz1UKQpgYGAKCmBgYHtyfQpzMSRtb2RlbGxpc3QKYGBgCgo=</div>
 
 
 

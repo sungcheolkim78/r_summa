@@ -78,9 +78,13 @@ train.summa <- function(summa, formula, data, update=FALSE, n_cores=-1) {
       message(paste0('... using cached result: ', method))
       summa$fitlist[[method]]
     } else {
-      set.seed(1024)
-      caret::train(formula, data=data, method=method, trControl=summa$fitControl, 
-                   metric="ROC", tuneLength=4, preProc = c("center", "scale"))
+      #set.seed(1024)
+      if (method %in% c('gbm', 'nnet'))       
+        caret::train(formula, data=data, method=method, trControl=summa$fitControl, 
+                     metric="ROC", tuneLength=4, preProc = c("center", "scale"), verbose=FALSE)
+      else
+        caret::train(formula, data=data, method=method, trControl=summa$fitControl, 
+                     metric="ROC", tuneLength=4, preProc = c("center", "scale"))
     }
   }
   
@@ -147,7 +151,8 @@ summary.summa <- function(summa, newmodellist = NULL) {
   l1 <- map_dbl(summa$lambdalist[newmodellist], 1)
   l2 <- map_dbl(summa$lambdalist[newmodellist], 2)
   rs <- map_dbl(summa$lambdalist[newmodellist], 3)
-  rbind(ROC, l1, l2, rs)
+  #rbind(ROC, l1, l2, rs)
+  tibble(ROC=ROC, l1=l1, l2=l2, rs=rs, model=unlist(newmodellist))
 }
 
 # Utility functions
@@ -203,3 +208,25 @@ lambda_fromROC <- function(ROC, N=N, rho=rho) {
   rs <- 1/l2 * log((1 - rho)/rho) - l1/l2
   return(c(l1 = l1, l2 = l2, rs = rs))
 }
+
+# make reports over multiple fittings
+generate_plot <- function(summalist, alpha=1, dataname='1') {
+  res <- summalist %>%
+    map(predict, alpha=alpha) %>%
+    map(summary.summa) %>%
+    reduce(rbind)
+  
+  res[res$model == 'summa', 'model'] <- 'summa+'
+  medians <- aggregate(ROC ~  model, res, median)
+  
+  g <- ggplot(res, aes(x=reorder(model, ROC, FUN = median), ROC, fill=model)) + 
+    geom_boxplot() + 
+    geom_text(data=medians, aes(label=formatC(ROC, format = "f", digits = 3), y=ROC-0.02), position = position_dodge2(0.9), size=3) +
+    ggtitle(paste0('Data Set ', dataname, ' - 10 iterations - alpha=', alpha)) +
+    xlab('Models')
+  
+  print(medians)
+  ggsave(paste0('DS', dataname, '_ROC_10iterations_a', alpha, '.pdf'))
+  g
+}
+
